@@ -15,7 +15,7 @@ ArrayList stack = new ArrayList();
 void setup() {
   background(255);
   size(300, 300);
-  
+  frameRate(10);
   colorMode(RGB);
 
 
@@ -25,13 +25,13 @@ void setup() {
   // Create an alpha masked image to be applied as the particle's texture
   ps = new ParticleSystem(200, new PVector(100,100));
 
-  ps2 = new ParticleSystem(200, new PVector(125,125));
+  ps2 = new ParticleSystem(200, new PVector(145,135));
 
   smooth();
 }
 
 void draw() {
-  background(255);
+  //background(255);
 
   // Calculate a "wind" force based on mouse horizontal position
   //float dx = (mouseX - width/2) / 10000.0;

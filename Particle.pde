@@ -7,8 +7,8 @@ class Particle {
   PVector acc;
   float timer;
   color particleColor;
-  int width = 30;
-  int height = 30;
+  int particleWidth = 30;
+  int particleHeight = 30;
   
   // One constructor
   Particle(PVector a, PVector v, PVector l) {
@@ -21,12 +21,12 @@ class Particle {
   // Another constructor (the one we are using here)
   Particle(PVector l, color _particleColor) {
     acc = new PVector(0.0,0.0,0.0);
-    float x = (float) generator.nextGaussian()*0.1f;
-    float y = (float) generator.nextGaussian()*0.1f;
+    float x = (float) generator.nextGaussian() *0.1f;
+    float y = (float) generator.nextGaussian() *0.1f;
     particleColor = _particleColor;
     vel = new PVector(x,y,0);
     loc = l.get();
-    timer = 500.0;
+    timer = 300.0;
   }
 
   void run() {
@@ -43,7 +43,16 @@ class Particle {
   // Method to update location
   void update() {
     vel.add(acc);
-    loc.add(vel);
+    
+    PVector brownian;
+    float factor = 4;
+    float xMin = loc.x > 0 ? -1 : 0;
+    float xMax = loc.x < width ? 1 : 0;
+    float yMin = loc.y > 0 ? -1 : 0;
+    float yMax = loc.y < height ? 1 : 0;
+    brownian = new PVector(factor * random(xMin,xMax),factor * random(yMin,yMax),0.0);
+
+    loc.add(brownian);
     timer -= 1;
     acc.mult(0);
   }
@@ -66,11 +75,11 @@ class Particle {
 
     try
     {
-      scope = get((int) loc.x,(int) loc.y, width, height);
+      scope = get((int) loc.x,(int) loc.y, particleWidth, particleHeight);
     }
     catch (Exception e)
     {
-      scope = createImage(width,height,RGB);
+      scope = createImage(particleWidth,particleHeight,RGB);
       scope.loadPixels();
       for (int i = 0; i < scope.pixels.length; i++) 
       {
@@ -78,7 +87,7 @@ class Particle {
       }
       scope.updatePixels();
     }
-    PImage img = createImage(width,height,RGB);
+    PImage img = createImage(particleWidth,particleHeight,RGB);
     img.loadPixels();
       for (int i = 0; i < img.pixels.length; i++) 
       {
@@ -105,7 +114,7 @@ class Particle {
 
   // Is the particle still useful?
   boolean dead() {
-    if (timer <= 0.0 || loc.x <= 0 || loc.y <= 0 || loc.x >= screen.width + width || loc.y >= screen.height + height ) {
+    if (timer <= 0.0){ //|| loc.x <= 0 || loc.y <= 0 || loc.x >= screen.width + width || loc.y >= screen.height + height ) {
       return true;
     } else {
       return false;
