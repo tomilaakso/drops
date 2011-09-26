@@ -21,8 +21,8 @@ class Particle {
   // Another constructor (the one we are using here)
   Particle(PVector l, color _particleColor) {
     acc = new PVector(0.0,0.0,0.0);
-    float x = (float) generator.nextGaussian()*0.6f;
-    float y = (float) generator.nextGaussian()*0.6f;
+    float x = (float) generator.nextGaussian()*0.4f;
+    float y = (float) generator.nextGaussian()*0.4f;
     particleColor = _particleColor;
     vel = new PVector(x,y,0);
     loc = l.get();
@@ -84,7 +84,7 @@ class Particle {
       {
         try
         {
-          img.pixels[i] = lerpColor(particleColor, scope.pixels[i], 0.999); 
+          img.pixels[i] = lerpColor(particleColor, scope.pixels[i], 0.99); 
         }
         catch (Exception e)
         {
