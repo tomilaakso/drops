@@ -31,7 +31,7 @@ void setup() {
 }
 
 void draw() {
-  //background(255);
+  background(255);
 
   // Calculate a "wind" force based on mouse horizontal position
   //float dx = (mouseX - width/2) / 10000.0;
