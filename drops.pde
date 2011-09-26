@@ -14,7 +14,7 @@ ArrayList stack = new ArrayList();
 
 void setup() {
   background(255);
-  size(500, 500);
+  size(300, 300);
   
   colorMode(RGB);
 
@@ -23,12 +23,10 @@ void setup() {
   generator = new Random();
 
   // Create an alpha masked image to be applied as the particle's texture
-  ps = new ParticleSystem(2000, new PVector(100,100));
+  ps = new ParticleSystem(200, new PVector(100,100));
 
-  ps2 = new ParticleSystem(2000, new PVector(225,125));
+  ps2 = new ParticleSystem(200, new PVector(125,125));
 
-  ps3 = new ParticleSystem(2000, new PVector(275,145));
-  
   smooth();
 }
 
@@ -46,8 +44,7 @@ void draw() {
 
   ps2.run();
   //ps2.addParticle();
-  
-  ps3.run();
+ 
   
 
   for (int i = 0; i < stack.size(); i++) 
