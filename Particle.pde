@@ -7,8 +7,8 @@ class Particle {
   PVector acc;
   float timer;
   color particleColor;
-  int width = 15;
-  int height = 15;
+  int width = 30;
+  int height = 30;
   
   // One constructor
   Particle(PVector a, PVector v, PVector l) {
@@ -21,12 +21,12 @@ class Particle {
   // Another constructor (the one we are using here)
   Particle(PVector l, color _particleColor) {
     acc = new PVector(0.0,0.0,0.0);
-    float x = (float) generator.nextGaussian()*0.4f;
-    float y = (float) generator.nextGaussian()*0.4f;
+    float x = (float) generator.nextGaussian()*0.1f;
+    float y = (float) generator.nextGaussian()*0.1f;
     particleColor = _particleColor;
     vel = new PVector(x,y,0);
     loc = l.get();
-    timer = 200.0;
+    timer = 500.0;
   }
 
   void run() {
@@ -84,7 +84,13 @@ class Particle {
       {
         try
         {
-          img.pixels[i] = lerpColor(particleColor, scope.pixels[i], 0.99); 
+          float mixRate;
+          float scopeBrightness = brightness(scope.pixels[i]);
+          if (scopeBrightness < 10) scopeBrightness = 10;
+
+          mixRate = 0.9 + 1 / scopeBrightness;
+
+          img.pixels[i] = lerpColor(particleColor, scope.pixels[i], mixRate); 
         }
         catch (Exception e)
         {
