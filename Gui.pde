@@ -6,15 +6,15 @@ class Gui {
   int guistarty;
   
  Gui(){
-   noStroke();
+   stroke(200);
    fill(225);
-   rect(0, guistarty, 499, height-guistarty-1);
+   rect(0, guistarty, 500, height-guistarty);
    this.buttons = new ArrayList();
    this.scrolls = new ArrayList();
    this.guistarty = 400;
    
-   this.buttons.add(new Button(50,guistarty+30,"random"));
-   this.buttons.add(new Button(100,guistarty+30,"manual"));
+   this.buttons.add(new Button(30,guistarty+35,"random","random"));
+   this.buttons.add(new Button(60+6*6,guistarty+35,"manual", "manual"));
  }
  
  boolean active(){
@@ -32,10 +32,16 @@ class Gui {
  void update(){
    for (int a = 0; a < this.buttons.size(); a++){
      Button button = (Button) this.buttons.get(a);
-     button.update();
-     if (button.overMe()){
-       
+     if (button.overMe() && !button.pressed() && mousePressed){
+       String act = button.getAction();
+       if (act.equals("random")) {
+         setRandomMode(true);
+       } else if (act.equals("manual")) {
+         setRandomMode(false);
+       }
+       button.setPressed(true);
      }
+     button.update();
    }
  }
   

@@ -7,8 +7,7 @@ class Particle {
   PVector acc;
   float timer;
   color particleColor;
-  int width = 15;
-  int height = 15;
+  int width, height;
   
   // One constructor
   Particle(PVector a, PVector v, PVector l) {
@@ -16,6 +15,8 @@ class Particle {
     vel = v.get();
     loc = l.get();
     timer = 100.0;
+    width = (int) (dropSize*20 +5);
+    height = (int) (dropSize*20 +5);
   }
 
   // Another constructor (the one we are using here)
@@ -99,7 +100,8 @@ class Particle {
 
   // Is the particle still useful?
   boolean dead() {
-    if (timer <= 0.0 || loc.x <= 1 || loc.y <= 1|| loc.x >= 499 || loc.y >= 399 ) {
+    if (timer <= 0.0 || loc.x <= 1 || loc.y <= 1|| 
+    loc.x >= 499 || loc.y >= 399 ) {
       return true;
     } else {
       return false;
