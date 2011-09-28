@@ -61,6 +61,8 @@ void update() {
     this.gui.activate(false);
   }
   
+  this.dropSize = 0.5;
+  
   if (millis() % 10 == 0 && stack.size() < 5 && this.randomMode){
     stack.add(new ParticleSystem(20, new PVector(random(20, width-20),
     random(20, gui.getStartY()-20))));

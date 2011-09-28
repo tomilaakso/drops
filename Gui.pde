@@ -1,20 +1,18 @@
 
 class Gui {
   ArrayList buttons;
-  ArrayList scrolls;
+  Sizebar sizebar;
   boolean active;
-  int guistarty;
+  int guistarty = height-100;
   
  Gui(){
-   stroke(200);
-   fill(225);
-   rect(0, guistarty, 500, height-guistarty);
    this.buttons = new ArrayList();
-   this.scrolls = new ArrayList();
-   this.guistarty = 400;
+   this.sizebar = new Sizebar(300, guistarty+20, 50,4,10);
    
    this.buttons.add(new Button(30,guistarty+35,"random","random"));
    this.buttons.add(new Button(60+6*6,guistarty+35,"manual", "manual"));
+   
+   this.update();
  }
  
  boolean active(){
@@ -23,6 +21,10 @@ class Gui {
  
  void activate(boolean activate){
    this.active = activate;
+   if (!activate) {
+    this.sizebar.unlock(); 
+   }
+   println(sizebar.getValue());
  }
  
  int getStartY(){
@@ -30,6 +32,11 @@ class Gui {
  }
  
  void update(){
+   rectMode(CORNER);
+   stroke(200);
+   fill(225);
+   rect(0, guistarty, 500, height-guistarty);
+   
    for (int a = 0; a < this.buttons.size(); a++){
      Button button = (Button) this.buttons.get(a);
      if (button.overMe() && !button.pressed() && mousePressed){
@@ -43,6 +50,7 @@ class Gui {
      }
      button.update();
    }
+   sizebar.update();
  }
   
 }
