@@ -6,16 +6,19 @@
  * Each particle is rendered as an alpha masked image. 
  */
 
-ParticleSystem ps,ps2,ps3;
+ParticleSystem ps, ps2, ps3;
 
 int stackSize = 0;
 Random generator;
 ArrayList stack = new ArrayList();
+/********/
+Gui gui;
+/**********/
 
 void setup() {
   background(255);
-  size(300, 300);
-  frameRate(10);
+  size(500, 500);
+
   colorMode(RGB);
 
 
@@ -23,15 +26,26 @@ void setup() {
   generator = new Random();
 
   // Create an alpha masked image to be applied as the particle's texture
-  ps = new ParticleSystem(200, new PVector(100,100));
+  ps = new ParticleSystem(2000, new PVector(100, 100));
 
-  ps2 = new ParticleSystem(200, new PVector(145,135));
+  ps2 = new ParticleSystem(2000, new PVector(225, 125));
+
+  ps3 = new ParticleSystem(2000, new PVector(275, 145));
 
   smooth();
+  /***********/
+  this.gui = new Gui();
+  /***********/
 }
 
 void draw() {
-  background(255);
+  /***/
+  fill(255);
+  noStroke();
+  rectMode(CORNER);
+  rect(0, 0, width, this.gui.getStartY());
+  update();
+  /***/
 
   // Calculate a "wind" force based on mouse horizontal position
   //float dx = (mouseX - width/2) / 10000.0;
@@ -44,17 +58,35 @@ void draw() {
 
   ps2.run();
   //ps2.addParticle();
- 
-  
+
+  ps3.run();
+
 
   for (int i = 0; i < stack.size(); i++) 
   {
-    ((ParticleSystem) stack.get(i)).run(); 
+    ((ParticleSystem) stack.get(i)).run();
   }
-
 }
+
+/*********/
+void update() {
+  if (mouseY > this.gui.getStartY()) {
+    if (!this.gui.active()) {
+      this.gui.activate(true);
+    }
+    this.gui.update();
+  } 
+  else if (this.gui.active()) {
+    this.gui.update();
+    this.gui.activate(false);
+  }
+}
+/******/
 
 void mousePressed()
 {
-  stack.add(new ParticleSystem(200, new PVector(mouseX,mouseY))); 
+  if (!this.gui.active()) {
+    stack.add(new ParticleSystem(200, new PVector(mouseX, mouseY)));
+  }
 }
+
