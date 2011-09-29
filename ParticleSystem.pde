@@ -21,10 +21,10 @@ class ParticleSystem {
     // Cycle through the ArrayList backwards b/c we are deleting
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = (Particle) particles.get(i);
+      p.run();
       if (p.dead()) {
         particles.remove(i);
       }
-      p.run();
     }
   }
   
@@ -32,6 +32,7 @@ class ParticleSystem {
   void add_force(PVector dir) {
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = (Particle) particles.get(i);
+      p.add_force(dir);
     }
   
   }  
